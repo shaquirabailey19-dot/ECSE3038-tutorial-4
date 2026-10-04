@@ -40,4 +40,10 @@ def create_device(device: Device):
     return new_device
 
 
-
+@app.put("/devices/{name}")                 #task 1: update device
+def update_device(name: str, device: Device):
+    for i, existing in enumerate(readings):
+        if existing["name"] == name:
+            readings[i] = device.model_dump()
+            return readings[i]
+    raise HTTPException(status_code=404, detail="No device called " + name)
